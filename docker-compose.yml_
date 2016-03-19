@@ -1,0 +1,63 @@
+interlock:
+    image: ehazlett/interlock:ng
+    command: run
+    ports:
+        - 8080
+    volumes:
+        - ./config.toml:/bin/config.toml
+        - haproxy:/etc
+        - /var/run/docker.sock:/var/run/docker.sock
+ environment:
+      - "constraint:node==interlock"
+
+
+haproxy:
+    image: haproxy:latest
+    ports:
+        - 80:80
+    labels:
+        - "interlock.ext.name=haproxy"
+    links:
+        - interlock:interlock
+    volumes:
+        - haproxy:/usr/local/etc/haproxy
+ environment:
+      - "constraint:node==interlock"
+
+redis:
+  image: "redis:latest"
+  ports:
+    - "6379:6379"
+  volumes:
+    - /data
+   environment:
+      - "constraint:node==redis"
+
+
+node01:
+  build: .
+  links:
+    - "redis:redis"
+  volumes:
+   - .:/code
+  labels:
+        - "interlock.hostname=cluster"
+        - "interlock.domain=test"
+  ports:
+    - "8080"
+ environment:
+      - "constraint:node==node01"
+
+node01:
+  build: .
+  links:
+    - "redis:redis"
+  volumes:
+   - .:/code
+  labels:
+        - "interlock.hostname=cluster"
+        - "interlock.domain=test"
+  ports:
+    - "8080"
+ environment:
+      - "constraint:node==node01"

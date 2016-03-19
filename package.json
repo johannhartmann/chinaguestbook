@@ -1,0 +1,15 @@
+{
+  "name": "chinaguestbook",
+  "version": "1.0.0",
+  "description": "A guestbook for china",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Johann-Peter Hartmann <hartmann@mayflower.de>",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4",
+    "redis": "^2.5.2"
+  }
+}
