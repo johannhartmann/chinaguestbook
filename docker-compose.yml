@@ -8,16 +8,20 @@ services:
     labels:
       - "interlock.hostname=guestbook"
       - "interlock.domain=local"
-    links:
-      - "redis:redis"
     volumes:
       - .:/code
-    environment:
-      - "constraint:node==node02"
+    networks:
+      - "default"
+    depends_on:
+      - redis
+    extra_hosts:
+      - "redis:192.168.33.250"
     expose:
       - 80
     hostname: "guestbook"
     domainname: "local"
+    environment:
+      - "constraint:node==node*"
 
   redis:
     image: "redis:latest"
@@ -25,6 +29,8 @@ services:
       - "6379:6379"
     volumes:
       - /data
+    networks:
+      - "default"
     environment:
       - "constraint:node==redis"
 
