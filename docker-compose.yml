@@ -2,12 +2,12 @@ version: "2"
 
 services:
   web:
-    image: "johannhartmann/noderedis"
+    image: "johannhartmann/noderedis:latest"
     ports:
       - 80
     labels:
       - "interlock.hostname=guestbook"
-      - "interlock.domain=local"
+      - "interlock.domain=mayflower.de"
     volumes:
       - .:/code
     networks:
@@ -19,12 +19,12 @@ services:
     expose:
       - 80
     hostname: "guestbook"
-    domainname: "local"
+    domainname: "mayflower.de"
     environment:
       - "constraint:node==node*"
 
   redis:
-    image: "redis:latest"
+    image: "johannhartmann/redis:latest"
     ports:
       - "6379:6379"
     volumes:
