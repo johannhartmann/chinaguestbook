@@ -15,4 +15,4 @@ COPY . /src
 
 EXPOSE  80
 
-CMD ["node", "src/index_express.js"]
+CMD ["node", "src/index_guestbook.js"]
