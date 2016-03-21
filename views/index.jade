@@ -1,0 +1,31 @@
+html
+  head
+    title!= title
+    link(rel="stylesheet", href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css")
+  body
+    div(class="pure-g")
+      div(class="pure-u-1-5")
+      div(class="pure-u-3-5")
+        div
+          h1 Willkommen im Gästebuch von China!
+          p!=message
+          - each comment in comments
+            h2= comment.name
+            p= "(" + comment.email + ")"
+            p= comment.message
+        div
+          form(name="login", action="/", method="post", class="pure-form pure-form-aligned")
+            fieldset
+              div(class="pure-control-group")
+                legend Bitte kommentieren Sie!
+                label(for="name") Name
+                input(type="text", name="name", placeholder="Your Name")
+              div(class="pure-control-group")
+                label(for="email") E-Mail
+                input(type="email", name="email", placeholder="Enter your adress")
+              div(class="pure-control-group")
+                label(for="message") Message
+                textarea(name="message", cols="40", rows="5")
+              div(class="pure-controls")
+                button(type="submit", class="pure-button pure-button-primary") Sign in
+      div(class="pure-u-1-5")
